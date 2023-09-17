@@ -1,0 +1,35 @@
+default_stages: [commit]
+default_language_version:
+  # force all unspecified python hooks to run python3
+  python: python3.11
+repos:
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--config, pyproject.toml]
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.0.253
+    hooks:
+      - id: ruff
+        args: [--config, pyproject.toml, --fix, --exit-non-zero-on-fix]
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: [--settings-path, pyproject.toml]
+
+  - repo: https://github.com/Woile/commitizen
+    rev: v2.35.0
+    hooks:
+      - id: commitizen
+        # don't forget to run pre-commit install --hook-type commit-msg for this hook to run
+        stages: [commit-msg]
+
+
+  - repo: https://github.com/GitGuardian/ggshield/
+    rev: v1.16.0
+    hooks:
+      - id: ggshield
